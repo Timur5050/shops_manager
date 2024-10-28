@@ -23,3 +23,7 @@ class ProductRetrieveSchema(BaseModel):
     quantity: int
     is_available: bool
     shop_id: int
+
+
+class ProductsListCreateSchema(BaseModel):
+    products: list[ProductCreateWithShopSchema]
