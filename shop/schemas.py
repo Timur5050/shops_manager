@@ -23,3 +23,7 @@ class ShopRetrieveSchema(BaseModel):
     description: str
     phone: str
     user_id: int
+
+
+class ShopDetailSchema(ShopRetrieveSchema):
+    products: list[ProductCreateWithShopSchema]
