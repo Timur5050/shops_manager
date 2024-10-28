@@ -45,7 +45,7 @@ async def create_many_products(
         shop_id=shop_id
     ) for product in products
     ]
-    await asyncio.sleep(10)
+    # await asyncio.sleep(10)
     async with db.begin():
         db.add_all(products_to_db)
     await db.commit()
