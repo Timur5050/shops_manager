@@ -160,3 +160,4 @@ cython_debug/
 .idea/
 shops_manager.sqlite3
 certs
+test.py
