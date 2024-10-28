@@ -37,7 +37,7 @@ def authenticate_user(email: str, password: str, db: Session = Depends(get_db)):
     return db_user
 
 
-@router.post("/login/")
+@router.post("/login/", response_model=None)
 def login_user(user: UserSchema, db: Session = Depends(get_db)):
     user_in_db = authenticate_user(user.email, user.password, db)
     if not user_in_db:
@@ -78,7 +78,7 @@ def login_user(user: UserSchema, db: Session = Depends(get_db)):
     return response
 
 
-@router.post("/token/refresh/")
+@router.post("/token/refresh/", response_model=None)
 async def refresh_old_token(request: Request):
     body = await request.json()
     refresh_token = body.get("refresh_token")
