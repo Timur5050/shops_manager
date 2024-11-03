@@ -13,3 +13,14 @@ class Product(Base):
     quantity = Column(Integer)
     is_available = Column(Boolean, default=True)
     shop_id = Column(Integer, ForeignKey("shops.id"))
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "price": self.price,
+            "quantity": self.quantity,
+            "is_available": self.is_available,
+            "shop_id": self.shop_id
+        }
