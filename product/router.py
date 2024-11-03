@@ -10,7 +10,7 @@ from database import AsyncSessionLocal
 from dependencies import get_db, get_async_db
 from product.models import Product
 from product.schemas import ProductCreateSeparatelySchema, ProductRetrieveSchema, ProductCreateWithShopSchema, \
-    ProductsListCreateSchema
+    ProductsListCreateSchema, ProductListSchema
 from product import crud
 from shop.models import Shop
 
@@ -92,8 +92,8 @@ async def create_many_products(
         request: Request,
         shop_id: int,
         products: ProductsListCreateSchema,
-        background_tasks: BackgroundTasks,  # Перемістіть цей параметр сюди
-        db: Session = Depends(get_db)  # Залиште цей параметр на останньому місці
+        background_tasks: BackgroundTasks,
+        db: Session = Depends(get_db)
 ):
     user_id = get_user_id(request)
 
@@ -117,4 +117,36 @@ async def create_many_products(
 
     return JSONResponse(
         {"message": "Products are being added successfully!"}
+    )
+
+
+@router.get("/{shop_id}/", response_model=list[ProductListSchema])
+def get_products_from_shop(
+        request: Request,
+        shop_id: int,
+        db: Session = Depends(get_db),
+        available: bool | None = None
+):
+    get_user_id(request)
+
+    return crud.get_products_by_shop(
+        shop_id=shop_id,
+        db=db,
+        available=available
+    )
+
+
+@router.get("/{shop_id}/{product_id}/", response_model=ProductRetrieveSchema)
+def retrieve_product_by_id(
+        request: Request,
+        shop_id: int,
+        product_id: int,
+        db: Session = Depends(get_db)
+):
+    get_user_id(request)
+
+    return crud.retrieve_product_by_id(
+        shop_id=shop_id,
+        product_id=product_id,
+        db=db
     )
