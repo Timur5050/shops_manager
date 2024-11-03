@@ -18,7 +18,7 @@ class ProductCreateSeparatelySchema(ProductCreateWithShopSchema):
 class ProductRetrieveSchema(BaseModel):
     id: int
     title: str
-    description: str
+    description: str | None = None
     price: decimal.Decimal
     quantity: int
     is_available: bool
@@ -27,3 +27,10 @@ class ProductRetrieveSchema(BaseModel):
 
 class ProductsListCreateSchema(BaseModel):
     products: list[ProductCreateWithShopSchema]
+
+
+class ProductListSchema(BaseModel):
+    title: str
+    description: str | None = None
+    price: decimal.Decimal
+    is_available: bool | None = None
