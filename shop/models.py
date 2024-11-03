@@ -11,3 +11,12 @@ class Shop(Base):
     description = Column(String, nullable=True)
     phone = Column(String)
     user_id = Column(Integer, ForeignKey("users.id"))
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "phone": self.phone,
+            "user_id": self.user_id
+        }
