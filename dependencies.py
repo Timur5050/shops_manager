@@ -14,9 +14,5 @@ def get_db() -> Session:
 
 
 async def get_async_db() -> AsyncSession:
-    db = AsyncSessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+    async with AsyncSessionLocal() as session:
+        yield session
