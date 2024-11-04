@@ -93,7 +93,7 @@ async def create_many_products(
         shop_id: int,
         products: ProductsListCreateSchema,
         background_tasks: BackgroundTasks,
-        db: Session = Depends(get_db)
+        db: Session = Depends(get_db),
 ):
     user_id = get_user_id(request)
 
