@@ -61,7 +61,7 @@ async def create_many_products(
         shop_id=shop_id
     ) for product in products
     ]
-    # await asyncio.sleep(10)
+    #await asyncio.sleep(10)
     redis_client = settings.redis.get_redis_client()
     for key in redis_client.scan_iter("product*"):
         redis_client.delete(key)
@@ -83,7 +83,7 @@ def get_products_by_shop(
     cache_value = settings.redis.get_redis_client().get(cache_key)
     if cache_value:
         products = [Product(**product) for product in json.loads(cache_value)]
-        print("redis:", time.time() - start_time)
+       # print("redis:", time.time() - start_time)
         return products
 
     start_time = time.time()
@@ -95,7 +95,7 @@ def get_products_by_shop(
     temp = json.dumps([product.to_dict() for product in product_queryset])
     settings.redis.get_redis_client().set(cache_key, temp, ex=3600)
 
-    print("db: ", time.time() - start_time)
+   # print("db: ", time.time() - start_time)
     return product_queryset
 
 
