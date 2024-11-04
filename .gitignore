@@ -163,3 +163,4 @@ certs
 test.py
 .env
 alembic.ini
+alembic
