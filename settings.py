@@ -22,7 +22,7 @@ class AuthJWT(BaseSettings):
 
 
 class RedisCacheDataBase:
-    def __init__(self, host='localhost', port=6379, db=0):
+    def __init__(self, host='redis', port=6379, db=0):
         self.host = host
         self.port = port
         self.db = db
@@ -32,7 +32,7 @@ class RedisCacheDataBase:
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "Expense Tracker"
+    PROJECT_NAME: str = "Shop manager"
 
     POSTGRES_USER: str = os.getenv("POSTGRES_USER")
     POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
@@ -42,7 +42,7 @@ class Settings(BaseSettings):
     DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
     ASYNC_DATABASE_URL = f"postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
-    # DATABASE_URL: str | None = "sqlite:///./shops_manager.sqlite3"
+    #DATABASE_URL: str | None = "sqlite:///./shops_manager.sqlite3"
     #ASYNC_DATABASE_URL: str | None = "sqlite+aiosqlite:///./shops_manager.sqlite3"
     auth_jwt: AuthJWT = AuthJWT()
     redis: RedisCacheDataBase = RedisCacheDataBase()
